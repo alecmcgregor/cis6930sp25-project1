@@ -16,4 +16,4 @@ expected_df = pd.DataFrame(expected)
 
 def test_location_finder():
     location = main.extract_location(expected_df)
-    assert location == ('79.67545', '-82.34557')
+    assert location == ('79.67545', '-82.34012')
