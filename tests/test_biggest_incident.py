@@ -35,4 +35,5 @@ expected_df = pd.DataFrame(expected)
 
 def test_most_affected():
     biggest = main.find_biggest_incident(dates_df)
+    data.loc[:, "totalpeopleinvolved"] = biggest["totalpeopleinvolved"].astype(str)
     assert biggest.equals(expected_df)
