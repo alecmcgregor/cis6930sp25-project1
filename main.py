@@ -117,8 +117,6 @@ def main(year, month, day):
 
         #sort and print the data out
         sort_print(new_data)
-    else:
-        print("There is no crash on that date! In the given data!")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
