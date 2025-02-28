@@ -124,4 +124,11 @@ if __name__ == '__main__':
     parser.add_argument("--month", type=str, required=False, help="The month.")
     parser.add_argument("--day", type=int, required=True, help="The day.")
     args = parser.parse_args()
-    main(args.year, args.month, args.day)
+    if not args.year:
+        parser.print_help(sys.stderr)
+    elif not args.month:
+        parser.print_help(sys.stderr)
+    elif not args.day:
+        parser.print_help(sys.stderr)
+    else:
+        main(args.year, args.month, args.day)
