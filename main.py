@@ -40,7 +40,7 @@ def fetchdata(url, isjson=True):
 #        return None
 
 def data_cleaning(data):
-    column_name = [col for col in data.columns if 'date' in col.lower()]
+    column_name = [col for col in data.columns if 'date' in col]
     for i in range(0,len(column_name)):
         data[column_name[i]] = data[column_name[i]].str.replace(r'T.*', '', regex=True)
     return data
@@ -57,7 +57,7 @@ def formatdate(year,month,day):
     return f"{year}-{month}-{day}"
 
 def filterdates(data, date):
-    column_name = [col for col in data.columns if 'date' in col.lower()]
+    column_name = [col for col in data.columns if 'date' in col]
     i = 1 if len(column_name)>1 else 0
     filtered_data = data[data[column_name[i]] == date]
     return filtered_data
