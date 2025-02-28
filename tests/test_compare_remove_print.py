@@ -35,4 +35,4 @@ def test_printing():
     main.sort_print(dates_df)
     expectation = ("4\t224010123\n" + "3\t224010436\n")
     sys.stdout = sys.__stdout__
-    assert statement.getValue() == expectation
+    assert statement.getvalue() == expectation
