@@ -34,5 +34,5 @@ expected = [
 expected_df = pd.DataFrame(expected)
 
 def test_most_affected():
-    biggest = main.find_biggest_incident(dates_df)
+    biggest = main.find_biggest_incident(dates)
     assert biggest == expected_df
