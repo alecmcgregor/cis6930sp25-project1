@@ -33,6 +33,6 @@ expected = [
 
 expected_df = pd.DataFrame(expected)
 
-df test_most_affected():
+def test_most_affected():
     biggest = main.find_biggest_incident(dates_df)
     assert biggest == expected_df
