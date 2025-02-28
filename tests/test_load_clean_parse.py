@@ -100,4 +100,5 @@ def test_clean_data():
 
 def test_date_filtering():
     just_dates = main.filterdates(clean_df, "2024-02-15")
+    just_dates = just_dates.reset_index(drop=True)
     assert just_dates.equals(dates_df)
