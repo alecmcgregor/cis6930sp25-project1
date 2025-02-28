@@ -106,7 +106,7 @@ def main(year, month, day):
 
     #find the traffic incident that affected the most total people, assuming that there will never be 2 biggest crashes
     biggest_crash = find_biggest_incident(traffic_dates)
-    if biggest_crash != None:
+    if not biggest_crash.empty:
 
         #extract the location of that crash
         location = extract_location(biggest_crash)
