@@ -27,7 +27,7 @@ dates_df = pd.DataFrame(dates)
 
 def test_compare_remove():
     testing = main.compare_location(location, dates_df)
-    assert testing == dates_df
+    assert testing.equals(dates_df)
     
 def test_printing():
     statement = io.StringIO()
