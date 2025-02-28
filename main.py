@@ -65,6 +65,7 @@ def filterdates(data, date):
 def find_biggest_incident(data):
     if data.empty:
         return None
+    data.loc[:, "totalpeopleinvolved"] = data["totalpeopleinvolved"].astype(int)
     biggest_crash = data.loc[[data['totalpeopleinvolved'].idxmax()]]
     return biggest_crash
 
