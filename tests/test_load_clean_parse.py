@@ -96,8 +96,8 @@ def test_download_url():
 
 def test_clean_data():
     clean_data = main.data_cleaning(df)
-    assert clean_data == clean_df
+    assert clean_data.equals(clean_df)
 
 def test_date_filtering():
     just_dates = main.filterdates(clean_df, "2024-02-15")
-    assert just_dates == dates_df
+    assert just_dates.equals(dates_df)
