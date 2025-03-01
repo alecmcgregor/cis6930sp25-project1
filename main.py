@@ -122,7 +122,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", type=str, required=False, help="The year.")
     parser.add_argument("--month", type=str, required=False, help="The month.")
-    parser.add_argument("--day", type=int, required=True, help="The day.")
+    parser.add_argument("--day", type=str, required=True, help="The day.")
     args = parser.parse_args()
     if not args.year:
         parser.print_help(sys.stderr)
