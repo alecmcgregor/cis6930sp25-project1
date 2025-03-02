@@ -114,7 +114,7 @@ def sort_print(data):
     for i in range(0, len(data)-1):
         if data['totalpeopleinvolved'].iloc[i] == data['totalpeopleinvolved'].iloc[i+1]:
             counter = i
-            while data['totalpeopleinvolved'].iloc[counter] == data['totalpeopleinvolved'].iloc[counter+1]:
+            while data['totalpeopleinvolved'].iloc[counter] == data['totalpeopleinvolved'].iloc[counter+1] and counter<=len(data)-1:
                 if data['id'].iloc[counter] < data['id'].iloc[counter+1]:
                     data.iloc[[counter, counter+1]] = data.iloc[[counter+1, counter]].values
                     counter=i
