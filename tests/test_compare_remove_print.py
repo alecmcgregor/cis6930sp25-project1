@@ -52,11 +52,11 @@ crime_dates = [
 expected_crime_dates = [
     {
         "id": "224010123",
-        "totalpeopleinvolved": "1"
+        "totalpeopleinvolved": int(1)
     },
     {
         "id": "224010436",
-        "totalpeopleinvolved": "1"
+        "totalpeopleinvolved": int(1)
     }
 ]
 
@@ -71,7 +71,6 @@ def test_compare_remove():
 
 def test_clean_crimes():
     new_df = main.clean_crimes(crime_dates_df)
-    new_df.loc[:, 'totalpeopleinvolved'] = new_df['totalpeopleinvolved'].astype(str)
     new_df.reset_index(drop=True, inplace=True)
     assert new_df.equals(expected_crime_dates_df)
 
