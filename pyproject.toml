@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 authors = [{name = "Alec McGregor", email = "alecmcgregor@ufl.edu"}]
 name = "project1"
 description = "Project One from alecmcgregor -- Spring 2025"
-version = "1.0"
+version = "3.0"
 readme = "README.md"
 
 [project.urls]
