@@ -33,6 +33,7 @@ expected = [
 
 expected_df = pd.DataFrame(expected)
 
+#this retrieves the largest crash
 def test_most_affected():
     biggest = main.find_biggest_incident(dates_df)
     biggest.loc[:, "totalpeopleinvolved"] = biggest["totalpeopleinvolved"].astype(str)
