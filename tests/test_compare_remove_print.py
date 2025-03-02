@@ -26,17 +26,11 @@ dates = [
 new_dates = [
     {
         "id": "224010123",
-        "accident_date": "2024-02-15",
-        "totalpeopleinvolved": "4",
-        "longitude": "-82.34012",
-        "latitude": "79.67545"
+        "totalpeopleinvolved": "4"
     },
     {
         "id": "224010436",
-        "accident_date": "2024-02-15",
-        "totalpeopleinvolved": "3",
-        "longitude": "-82.34557",
-        "latitude": "79.67890"
+        "totalpeopleinvolved": "3"
     }
 ]
 
@@ -58,17 +52,11 @@ crime_dates = [
 expected_crime_dates = [
     {
         "id": "224010123",
-        "totalpeopleinvolved": "1",
-        "accident_date": "2024-02-15",
-        "longitude": "-82.34012",
-        "latitude": "79.67545",
+        "totalpeopleinvolved": "1"
     },
     {
         "id": "224010436",
-        "totalpeopleinvolved": "1",
-        "accident_date": "2024-02-15",
-        "longitude": "-82.34557",
-        "latitude": "79.67890"
+        "totalpeopleinvolved": "1"
     }
 ]
 
