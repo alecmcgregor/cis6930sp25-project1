@@ -65,19 +65,23 @@ new_dates_df = pd.DataFrame(new_dates)
 crime_dates_df = pd.DataFrame(crime_dates)
 expected_crime_dates_df = pd.DataFrame(expected_crime_dates)
 
+this makes sure that the comparison function removes entries more than a km away
 def test_compare_remove():
     testing = main.compare_location(location, dates_df)
     assert testing.equals(dates_df)
 
+#this test to make sure the crime df is properly cleaned
 def test_clean_crimes():
     new_df = main.clean_crimes(crime_dates_df)
     new_df.reset_index(drop=True, inplace=True)
     assert new_df.equals(expected_crime_dates_df)
 
+#this test is to make sure the traffic data is properly cleaned
 def test_clean_traffic():
     new_df = main.clean_traffic(dates_df)
     assert new_df.equals(new_dates_df)
-    
+
+#this test is to make sure that the print is properly sorted and printed out to the terminal
 def test_printing():
     statement = io.StringIO()
     sys.stdout = statement
