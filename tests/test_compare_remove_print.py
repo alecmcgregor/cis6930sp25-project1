@@ -65,7 +65,7 @@ new_dates_df = pd.DataFrame(new_dates)
 crime_dates_df = pd.DataFrame(crime_dates)
 expected_crime_dates_df = pd.DataFrame(expected_crime_dates)
 
-this makes sure that the comparison function removes entries more than a km away
+#this makes sure that the comparison function removes entries more than a km away
 def test_compare_remove():
     testing = main.compare_location(location, dates_df)
     assert testing.equals(dates_df)
