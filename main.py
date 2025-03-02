@@ -4,6 +4,7 @@ import urllib.request
 import pandas as pd
 from geopy.distance import geodesic
 
+#makes sure that the date is in a 4 digit year, 2 digit month, and 2 digit day, returned as a string
 def formatdate(year,month,day):
     if month<10:
         month = f"0{month}"
@@ -15,13 +16,15 @@ def formatdate(year,month,day):
         day = f"{day}"
     return f"{year}-{month}-{day}"
 
+#formats the url to make sure that only incidents on the correct date are being pulled from the traffic api
 def format_traffic_url(url,date):
     ending = f"?$where=accident_date%20between%20%27{date}T00:00:00%27%20and%20%27{date}T23:59:59%27"
     url = url + ending
     return url
 
+#formats the url to make sure that only incidents on the correct date are being pulled from the crime api
 def format_crime_url(url,date):
-    #could need  report_date instead or could need both report and offense date = same day, check
+    #right now I am filtering based on report date instead of crime date, based on the "Running Example" given in the project instructions
     ending = f"?$where=report_date%20between%20%27{date}T00:00:00%27%20and%20%27{date}T23:59:59%27"
     url = url + ending
     return url
@@ -52,28 +55,7 @@ def fetchdata(url, isjson=True):
         else:
             return pd.DataFrame(data)
 
-#temporary for debugging
-# def download_file(file):
-#    if file is not None:
-#        download = open(file)
-#        return pd.DataFrame(json.load(download))
-#    else:
-#        return None
-
-# def data_cleaning(data):
-#     column_name = [col for col in data.columns if 'date' in col.lower()]
-#     for i in range(0,len(column_name)):
-#         data[column_name[i]] = data[column_name[i]].str.replace(r'T.*', '', regex=True)
-#     return data
-
-
-
-# def filterdates(data, date):
-#     column_name = [col for col in data.columns if 'date' in col.lower()]
-#     i = 1 if len(column_name)>1 else 0
-#     filtered_data = data[data[column_name[i]] == date]
-#     return filtered_data
-
+#finds the traffic incident with the highest total people involved
 def find_biggest_incident(data):
     #if no data was passed in return an empty df
     if data.empty:
@@ -84,10 +66,12 @@ def find_biggest_incident(data):
     biggest_crash = data.loc[[data['totalpeopleinvolved'].idxmax()]]
     return biggest_crash
 
+#extracts the location of the largest crash
 def extract_location(data):
      longitude, latitude = data['longitude'], data['latitude']
      return latitude.iloc[0], longitude.iloc[0]
 
+#compares the location of the largest crash to all traffic and crime incidents that occurred on the given day
 def compare_location(location, data):
     new_df = pd.DataFrame(columns=data.columns)
     for i in range(0, len(data)):
@@ -98,17 +82,20 @@ def compare_location(location, data):
             new_df = pd.concat([new_df, data.iloc[[i]]], ignore_index=True)
     return new_df
 
+#cleans up the crime data to make sure that it can be combined with traffic data
 def clean_crimes(data):
     data.insert(1, 'totalpeopleinvolved', 1)
     selected_data = data[['id', 'totalpeopleinvolved']]
     return selected_data
 
+#cleans up the traffic data to make sure that it can be combined with crime data
 def clean_traffic(data):
     selected_data = data[['case_number', 'totalpeopleinvolved']]
     selected_data = selected_data.copy()
     selected_data.rename(columns={'case_number':'id'}, inplace = True)
     return selected_data
 
+#sorts out the data first by highest number of people involved and then by case number for those with equal amounts of total people involved
 def sort_print(data):
     data = data.sort_values(by='totalpeopleinvolved', ascending=False)
     for i in range(0, len(data)-1):
@@ -123,6 +110,7 @@ def sort_print(data):
     for i in range(0, len(data)):
         print(f"{data['totalpeopleinvolved'].iloc[i]}\t{data['id'].iloc[i]}")
 
+#main function to combine all the previous functions
 def main(year, month, day):
     #format the data for use
     date = formatdate(int(year), int(month), int(day))
@@ -130,19 +118,6 @@ def main(year, month, day):
     #fetch data from a formatted url to only return incidents on the provided day
     traffic_incidents = fetchdata(format_traffic_url("https://data.cityofgainesville.org/resource/iecn-3sxx.json", date))
     crime_incidents = fetchdata(format_crime_url("https://data.cityofgainesville.org/resource/gvua-xt9q.json", date))
-
-    #gather the data from the url, create data frames, and clean the data
-    # arrests = data_cleaning(fetchdata("https://data.cityofgainesville.org/resource/aum6-79zv.json"))
-    # #traffic_incidents = data_cleaning(fetchdata("https://data.cityofgainesville.org/resource/iecn-3sxx.json"))
-    # crime_responses = data_cleaning(fetchdata("https://data.cityofgainesville.org/resource/gvua-xt9q.json"))
-
-    #temporary for debugging
-    # traffic_incidents = data_cleaning(download_file("filename.json"))
-
-    #filter all data frames for incidents that occurred on the given date
-    # arr_dates = filterdates(arrests, date)
-    # traffic_dates = filterdates(traffic_incidents, date)
-    # crime_dates = filterdates(crime_responses, date)
 
     #find the traffic incident that affected the most total people, assuming that there will never be 2 biggest crashes
     biggest_crash = find_biggest_incident(traffic_incidents)
@@ -162,7 +137,7 @@ def main(year, month, day):
 
         #sort and print the data out
         sort_print(combined_data)
-
+        
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", type=str, required=False, help="The year.")
@@ -177,3 +152,4 @@ if __name__ == '__main__':
         parser.print_help(sys.stderr)
     else:
         main(args.year, args.month, args.day)
+        
