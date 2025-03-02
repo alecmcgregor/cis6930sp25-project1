@@ -120,6 +120,8 @@ def sort_print(data):
                     counter=i
                 else:
                     counter+=1
+                    if counter == len(data)-1:
+                        break
     for i in range(0, len(data)):
         print(f"{data['totalpeopleinvolved'].iloc[i]}\t{data['id'].iloc[i]}")
 
