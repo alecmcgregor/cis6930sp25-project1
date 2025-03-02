@@ -80,7 +80,7 @@ def test_clean_traffic():
 def test_printing():
     statement = io.StringIO()
     sys.stdout = statement
-    main.sort_print(dates_df)
+    main.sort_print(new_dates_df)
     expectation = ("4\t224010123\n" + "3\t224010436\n")
     sys.stdout = sys.__stdout__
     assert statement.getvalue() == expectation
