@@ -71,6 +71,7 @@ def test_compare_remove():
 
 def test_clean_crimes():
     new_df = main.clean_crimes(crime_dates_df)
+    new_df.reset_index(drop=True, inplace=True)
     assert new_df.equals(expected_crime_dates_df)
 
 def test_clean_traffic():
